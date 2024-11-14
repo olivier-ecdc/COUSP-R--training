@@ -52,7 +52,8 @@ Sys.time()
 library(pacman)
 
 pacman::p_load(dplyr,
-               readxl)
+               readxl,
+               writexl)
 
 #Charger les données
 
@@ -78,14 +79,12 @@ str(liste_lineaire)
 # dplyr est un package puissant pour la manipulation de données. 
 # Voici quelques-unes des fonctions les plus utilisées :
 
-# 1. select() : permet de sélectionner des colonnes spécifiques
-# 2. rename() : permet de renommer des colonnes
+# 1. rename() : permet de renommer des colonnes
+# 2. ifelse() : permet d'utisier un conditionnel
 # 3. mutate() : permet de créer ou transformer des colonnes
-# 4. filter() : permet de filtrer les lignes selon des conditions
-# 5. arrange() : permet de trier les données
+# 4. select() : permet de sélectionner des colonnes spécifiques
+# 5. filter() : permet de filtrer les lignes selon des conditions
 # 6. distinct() : permet de supprimer les doublons
-# 7. summarise() : permet de résumer les données
-# 8. group_by() : permet de grouper les données pour des opérations agrégées
 
 ## Nettoyage de données avec le package dplyr
 
@@ -152,29 +151,29 @@ print(vec_classification)
 # La fonction mutate() permet de créer de nouvelles colonnes ou de transformer les colonnes existantes
 # Nous allons utiliser ifelse pour créer une nouvelle colonne "AgeGroupe" qui classifie les âges en "Adulte" (>= 18) ou "Enfant" (< 18)
 
-liste_lineaire_nettoyee <- liste_lineaire %>%
+liste_lineaire_nettoyee1 <- liste_lineaire %>%
   mutate(AgeGroupe = ifelse(Age >= 18, "Adulte", "Enfant"))
 
+table(liste_lineaire_nettoyee1$AgeGroupe)
+
 # Excemple  mutate() 
-liste_lineaire_nettoyee <- liste_lineaire %>% 
+liste_lineaire_nettoyee2 <- liste_lineaire %>% 
   mutate(IndividuMineur = ifelse(Age > 18, "Adulte", "Mineur"))
+table(liste_lineaire_nettoyee2$IndividuMineur)
 
 #Example mutate()
-liste_lineaire_nettoyee <- liste_lineaire %>% 
-  mutate(FievreEruptionsCutanees = ifelse(Fievere == "Oui" & EruptionsCutanees == "Oui", "Oui", "Non"))
+liste_lineaire_nettoyee3 <- liste_lineaire %>% 
+  mutate(FievreEruptionsCutanees = ifelse(Fievre == "Oui" & EruptionsCutanees == "Oui", "Oui", "Non"))
+table(liste_lineaire_nettoyee3$FievreEruptionsCutanees)
 
 # Plus d'exemples avec mutate
 liste_lineaire_nettoyee <- liste_lineaire %>% 
-  mutate(IndividuMineur = ifelse(Age > 18, "Adulte", "Mineur"),
-        Hospitalisation = ifelse(is.na(Hospitalisation), "Non", Hospitalisation),
-        EtatCas = ifelse(is.na(EtatCas), "Inconnu", EtatCas))
+  mutate(IndividuMineur = ifelse(Age > 18, "Adulte", "Mineur"))
 
 #À VOUS: Explorez la variable crée IndividuMineur avec la funtion table()
 
 
-
 #À Vous: Ajoutez une nouvelle variable qui classifiez les cas avec Fievre ET avec EruptionsGenitales
-
 
 
 # Sélectionner des colonnes spécifiques
@@ -182,14 +181,16 @@ liste_lineaire_nettoyee <- liste_lineaire %>%
 liste_lineaire %>% 
   names()
 
+# Exemple de sélection avec d'autres critères
+liste_lineaire_selectionee2  <- liste_lineaire %>% 
+  select(Province, ZS, Sexe, Age, DateNotification)
+
+#On peut aussi specifier un group de variable
 liste_lineaire_selectionee1 <- liste_lineaire %>% 
   select(starts_with("Date"), ends_with("symptomes"), contains("Eruption"))
 
-# Exemple de sélection avec d'autres critères
-liste_lineaire_selectionee2  <- liste_lineaire %>% 
-  select(NomProvince, NomZS, Sexe, Age, DateNotification)
+#À VOUS EXERCISE: Guardez un ensemble de donnés "liste_lineaire_selectionee3" avec les variables Sexe, Age, Province, et ZS et tous les dates
 
-#À VOUS EXERCISE: Guardez un ensemble de donnés "liste_lineaire_selectionee3" avec les variables Sexe, Age, Province et ZS
 
 
 ## Déduplication des données
@@ -201,7 +202,6 @@ liste_lineaire_deduplic <- liste_lineaire %>%
 str(liste_lineaire)
 str(liste_lineaire_deduplic)
 
-
 # Conversion de type avec as.character(), as.factor(), as.numeric(), as.Date()
 # Ces fonctions permettent de convertir le type de données des colonnes du dataframe
 
@@ -209,21 +209,50 @@ str(liste_lineaire_deduplic)
 class(liste_lineaire$StatusCas)
 
 liste_lineaire_nettoyee <- liste_lineaire %>% 
-  mutate(Age = as.factor(StatusCas))
+  mutate(StatusCas = as.factor(StatusCas))
 
 #Verifier le type de variable avec class 
 class(liste_lineaire_nettoyee$StatusCas)
 
-liste_lineaire_nettoyee <- liste_lineaire %>% 
-  mutate(DateNotification = as.Date(DateNotification),
-         Age = as.numeric(Age))
-
-#Exemple:
+#Autres Exemple avec une combination dans mutate():
 liste_lineaire_nettoyee <- liste_lineaire %>% 
   mutate(Sexe = as.factor(Sexe),
          Age = as.numeric(Age),
          AdultJeune = ifelse(Age > 30, "Adulte", "Jeune"))
 
-#À VOUS EXERCISE: Reclassifier la
+#À VOUS EXERCISE: Reclassifier la variable Hospitalisation ("Oui" ou "Non") comme variable factor?
+liste_lineaire_nettoyee <- liste_lineaire %>%  # continuer ici
+
+
+# FAIRE UN NETTOYAGE COMPLET AVEC LES FUNCTIONS QUE VOUS AVEZ APPRIS  
+
+#Ces sont les variables a votre deposition:
+# 1. rename() : permet de renommer des colonnes
+# 2. ifelse() : permet d'utisier un conditionnel
+# 3. mutate() : permet de créer ou transformer des colonnes
+# 4. select() : permet de sélectionner des colonnes spécifiques
+# 5. filter() : permet de filtrer les lignes selon des conditions
+# 6. distinct() : permet de supprimer les doublons
+
+#On veut faire un petit nettoyage pour pouvoir creer un tableau qui montre les personnes sans et avec cicatrice vaccine variole et les hospitalisation par province et ZS avec un date de notificaton dans 2024
+#Exemple: 
+table(liste_lineaire$CicatriceVaccinVariole) #Pour nettoyer on doit toujours
+
+liste_lineaire_hosp_variole <- liste_lineaire %>% 
+  rename(Dechargemode = ModeDecharge, DPS = Province) %>% #renomer quelques variables
+  mutate(VaccinVariole = ifelse(CicatriceVaccinVariole == "Non" | CicatriceVaccinVariole == "Cas suspect refuse de montrer", 0, 1),
+         Hospitalisation = ifelse(Hospitalisation == "Oui", 1, 0)) %>%  # bon pratique d'avoir "Oui/ Non" comme 1 et 0 pour pouvoir faire l'addition
+  select(DPS, ZS, DateNotification, VaccinVariole, Hospitalisation) %>% 
+  filter(DateNotification >= 2024) 
+
+#Maintenant on peut exporter la base de données un excel
+#x va specifier que vous voulez guarder et avec path vous pouvez donner le chemin et le nom au fichier excel
+writexl::write_xlsx(x = liste_lineaire_hosp_variole, path = "basededonnées_nettoyee_hosp_variole.xlsx")
+
+#À VOUS EXERCISE: Vous voulez guarder un ensemble de données avec :
+# les variables Province, ZS, ClassificationCas, DateNotification, DatePrelevement et DateSymptomes 
+# avec une nouvelle variables cas confirme qui est 1 si le ClassificationCas == "Cas Confirmé" et 0 si non
+# pour tous les données de 2024
+# seulement pour la Province de Kinshasa 
 
 

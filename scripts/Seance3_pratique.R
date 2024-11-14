@@ -1,3 +1,18 @@
+#déjá couvert dans la session 2:
+
+# 1. select() : permet de sélectionner des colonnes spécifiques
+# 2. rename() : permet de renommer des colonnes
+# 3. ifelse() : permet d'utisier un conditionnel
+# 4. mutate() : permet de créer ou transformer des colonnes
+# 5. filter() : permet de filtrer les lignes selon des conditions
+# 6. distinct() : permet de supprimer les doublons
+
+#PROPOSALS
+#ADD  function arrange() as well
+#ADD function is.na() and how to deal with NAs
+
+# 7. summarise() : permet de résumer les données
+# 8. group_by() : permet de grouper les données pour des opérations agrégées
 
 # Excemple  mutate() 
 liste_lineaire <- liste_lineaire %>% 
