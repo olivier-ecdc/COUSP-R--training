@@ -231,14 +231,18 @@ liste_lineaire_nettoyee <- liste_lineaire %>%
 
 #On veut faire un petit nettoyage pour pouvoir creer un tableau qui montre les personnes sans et avec cicatrice vaccine variole et les hospitalisation par province et ZS avec un date de notificaton dans 2024
 #Exemple: 
-table(liste_lineaire$CicatriceVaccinVariole) #Pour nettoyer on doit toujours
+
+# on regarder quels sont les categories de la variable "CicatriceVaccinVariole"
+table(liste_lineaire$CicatriceVaccinVariole) 
+
+
 
 liste_lineaire_hosp_variole <- liste_lineaire %>% 
   rename(Dechargemode = ModeDecharge, DPS = Province) %>% #renomer quelques variables
   mutate(VaccinVariole = ifelse(CicatriceVaccinVariole == "Non" | CicatriceVaccinVariole == "Cas suspect refuse de montrer", 0, 1),
          Hospitalisation = ifelse(Hospitalisation == "Oui", 1, 0)) %>%  # bon pratique d'avoir "Oui/ Non" comme 1 et 0 pour pouvoir faire l'addition
   select(DPS, ZS, DateNotification, VaccinVariole, Hospitalisation) %>% 
-  filter(DateNotification >= 2024) 
+  filter(DateNotification >= 2024)
 
 #Maintenant on peut exporter la base de données un excel
 #x va specifier que vous voulez guarder et avec path vous pouvez donner le chemin et le nom au fichier excel
