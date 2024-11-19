@@ -17,13 +17,13 @@ y <- c(1, 2, 3, 4, 5)  # créer un vecteur
 mean(y)  # calculer la moyenne des éléments du vecteur
 
 
-# Dans R, nous utilisons le dièse (#) pour marquer les commentaires. Il s'agit d'un texte qui peut être écrit, mais qui n'est pas interprété par R,
+# Dans R, nous utilisons le dièse (#) pour marquer les commentaires. Il s'agit d'un texte qui peut être écrit, 
 # mais qui n'est pas interprété par R. Nous l'utilisons pour laisser des remarques et des instructions comme celle-ci
 # un.
 
 # Vous pouvez préparer du code dans un fichier (comme celui-ci) et l'exécuter ligne par ligne en appuyant sur CTRL+RETOUR.
 # en appuyant sur CTRL+RETURN (ou ENTER). Vous pouvez également sélectionner plusieurs lignes pour les
-# plusieurs lignes pour les exécuter toutes en même temps. De plus, vous pouvez écrire du code directement sur la console.
+# pour les exécuter toutes en même temps. De plus, vous pouvez écrire du code directement sur la console.
 
 # Vous pouvez vérifier votre répertoire de travail actuel avec getwd()
 getwd()
@@ -38,7 +38,7 @@ Sys.time()
 
 # Rappelez-vous que dans RStudio vous pouvez utiliser l'aide intégrée et l'autocomplétion.
 # Lorsque vous commencez à taper une fonction, une fenêtre s'affiche avec les paramètres que la fonction accepte.
-# accepte. Vous pouvez également utiliser "tab" pour autocompléter quelque chose que vous avez commencé à # écrire (par ex.
+# Vous pouvez également utiliser "tab" pour autocompléter quelque chose que vous avez commencé à # écrire (par ex.
 # (par exemple, si vous commencez à taper « Sys.ti » et que vous appuyez sur la touche de tabulation, il va 
 # l'autocompléter pour vous et écrire Sys.time()).
 
@@ -80,7 +80,7 @@ str(liste_lineaire)
 # Voici quelques-unes des fonctions les plus utilisées :
 
 # 1. rename() : permet de renommer des colonnes
-# 2. ifelse() : permet d'utisier un conditionnel
+# 2. ifelse() : permet d'utiliser un conditionnel
 # 3. mutate() : permet de créer ou transformer des colonnes
 # 4. select() : permet de sélectionner des colonnes spécifiques
 # 5. filter() : permet de filtrer les lignes selon des conditions
@@ -156,7 +156,7 @@ liste_lineaire_nettoyee1 <- liste_lineaire %>%
 
 table(liste_lineaire_nettoyee1$AgeGroupe)
 
-# Excemple  mutate() 
+# Example  mutate() 
 liste_lineaire_nettoyee2 <- liste_lineaire %>% 
   mutate(IndividuMineur = ifelse(Age > 18, "Adulte", "Mineur"))
 table(liste_lineaire_nettoyee2$IndividuMineur)
@@ -172,9 +172,7 @@ liste_lineaire_nettoyee <- liste_lineaire %>%
 
 #À VOUS: Explorez la variable crée IndividuMineur avec la funtion table()
 
-
 #À Vous: Ajoutez une nouvelle variable qui classifiez les cas avec Fievre ET avec EruptionsGenitales
-
 
 # Sélectionner des colonnes spécifiques
 # La fonction select() permet de sélectionner des colonnes spécifiques du dataframe
@@ -190,8 +188,6 @@ liste_lineaire_selectionee1 <- liste_lineaire %>%
   select(starts_with("Date"), ends_with("symptomes"), contains("Eruption"))
 
 #À VOUS EXERCISE: Guardez un ensemble de donnés "liste_lineaire_selectionee3" avec les variables Sexe, Age, Province, et ZS et tous les dates
-
-
 
 ## Déduplication des données
 # La fonction distinct() permet de supprimer les doublons dans le dataframe
@@ -221,7 +217,6 @@ liste_lineaire_nettoyee <- liste_lineaire %>%
          AdultJeune = ifelse(Age > 30, "Adulte", "Jeune"))
 
 #À VOUS EXERCISE: Reclassifier la variable Hospitalisation ("Oui" ou "Non") comme variable factor?
-liste_lineaire_nettoyee <- liste_lineaire %>%  # continuer ici
 
 
 # FAIRE UN NETTOYAGE COMPLET AVEC LES FUNCTIONS QUE VOUS AVEZ APPRIS  
