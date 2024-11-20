@@ -1,17 +1,47 @@
-
-
 ####################
 ## Pratique 2  ##
 ##"COUSP formations pratique en R" ##
 #################### 
 
-####################
+
+
+
+###############################################################################################################################
 ## Conseils utiles ##
 
 ## Syntaxe de base en R
 # Le langage R utilise une syntaxe simple pour exécuter des commandes.
 x <- 10  # assigner une valeur à une variable
 x # afficher la valeur de la variable ou de l object
+
+## Synthaxe logique
+# Comparaison d'égalité
+a <- 5
+b <- 7
+a == b  # Vérifie si a est égal à b (retourne FALSE)
+
+# Comparaison de différence
+a != b  # Vérifie si a est différent de b (retourne TRUE)
+
+# Comparaison de supériorité
+a > b  # Vérifie si a est supérieur à b (retourne FALSE)
+a < b  # Vérifie si a est inférieur à b (retourne TRUE)
+
+# Comparaison de supériorité ou égalité
+a >= b  # Vérifie si a est supérieur ou égal à b (retourne FALSE)
+a <= b  # Vérifie si a est inférieur ou égal à b (retourne TRUE)
+
+# Different type d objet
+# Il existe d'autres types de données en R, tels que les types logiques (True et False) ou
+# les dates. De plus, similaire aux vecteurs mathématiques, plusieurs valeurs peuvent
+# également être stockées dans un seul objet. En R, il existe deux types : les vecteurs et 
+# les listes.
+objet_logique <- FALSE
+vecteur_objet <- c(1,2,3)
+liste_simple <- list(1, 2, 3)
+liste_complexe <- list(premiere_liste = list(1,2,3),
+                       deuxieme_liste = list(4,5,6))
+
 
 y <- c(1, 2, 3, 4, 5)  # créer un vecteur
 mean(y)  # calculer la moyenne des éléments du vecteur
@@ -43,20 +73,16 @@ Sys.time()
 # l'autocompléter pour vous et écrire Sys.time()).
 
 
-# Rappels de la sceance precedente: 
+###############################################################################################################################
+# Rappels de la sceance precedente:
 
-#Charger le package
+# Charger le package
 
-#install.packages("pacman")
-
-library(pacman)
-
-pacman::p_load(dplyr,
-               readxl,
-               writexl)
+library(dplyr)
+library(readxl)
+library(writexl)
 
 #Charger les données
-
 chemin <- "data/liste_lineaire_fausse_version1.xlsx" #directoire ou se trouve votre fiche d'excel
 sheet <- 1 # la page que vous voulez ajouter
   
@@ -124,7 +150,6 @@ liste_lineaire_nettoyee %>%
   names()
 
 # À VOUS EXERCISE : Renomer le variable "ClassificatinCas" to "classification"
-
 
 # Utilisation de la fonction ifelse
 
